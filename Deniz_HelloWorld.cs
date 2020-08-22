@@ -10,7 +10,7 @@ namespace Deniz_HelloWorld
     {
         static void Main(string[] args)
         {//prints the window and the message
-            Console.WriteLine("Hello, world!");
+            Console.WriteLine("Samuel F. Deniz");
         }
     }
 }
