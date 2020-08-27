@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//name: Sam Deniz
+namespace Deniz_Question5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {//asks for the numbers and multiplies
+            Console.WriteLine("Make four numbers");
+            string won = Console.ReadLine();
+            string too = Console.ReadLine();
+            string tree = Console.ReadLine();
+            string fore = Console.ReadLine();
+            double one = double.Parse(won);
+            double two = double.Parse(too);
+            double three = double.Parse(tree);
+            double four = double.Parse(fore);
+            Console.WriteLine(one * two * three * four);
+        }
+    }
+}
