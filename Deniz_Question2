@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//name: Sam Deniz
+namespace Deniz_Question2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {//asks for the numbers the first time
+            Console.WriteLine("Give two numbers with at least one less than 11.");
+            methood();
+        }
+        static void methood()
+        {//the method that reads the numbers and determines if they have one that is less than or equal to 10
+            string fir = Console.ReadLine();
+            string sec = Console.ReadLine();
+            int st = int.Parse(fir);
+            int ond = int.Parse(sec);
+            if (st > 10 && ond > 10)
+            {//makes it run again
+                Console.WriteLine("No. At least one number must be less than 11.");
+                methood();
+            }
+            else
+            {//displays the numbers if one is 10 or less
+                Console.WriteLine(st+" "+ond);
+            }
+        }
+    }
+}
