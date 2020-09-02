@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+//name: Sam Deniz
+namespace Deniz_ParsingFormatting
+{
+    class Program
+    {/* Class Program
+        Author: Sam Deniz
+        Purpose: Contains the main method
+        Restrictions: None*/
+        static void Main(string[] args)
+        {/* Method: main
+            Purpose: picks a random number between 0 and 100 and asks for the number
+            Restrictions: none*/
+            Random rand = new Random();
+            int randomNumber = rand.Next(0, 101);
+            int turns = 1;
+            int wrong = 0;
+            Console.WriteLine(randomNumber);
+            Console.WriteLine("Guess a number between 0 and 100");
+            for(turns=1;turns<=8;turns++)
+            {
+                string play = Console.ReadLine();
+                int guess = int.Parse(play);
+                if (guess >= 0 && guess <= 100)
+                {
+                    if (guess == randomNumber)
+                    {
+                        Console.WriteLine("Correct. You took "+turns+" turns.");
+                        turns = 10;//stops the loop
+                        wrong++;//prevents the running out message from displaying
+                    }
+                    else if(guess<randomNumber)
+                    {
+                        Console.WriteLine("Too low.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Too high.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid number");
+                    turns--;//helps keep the loop from stopping too early
+                }
+            }
+            if (wrong==0)
+            {
+                Console.WriteLine("You ran out of turns. The number was "+randomNumber);
+            }
+        }
+    }
+}
