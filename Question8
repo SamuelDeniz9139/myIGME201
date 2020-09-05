@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+//name: Sam Deniz
+namespace Question9
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {/* Name: Main
+          * Purpose: replaces every no in a string with a yes
+          * Restrictions: None */
+            string phrase = "no no no no n on on on on on no on n o no no n o no";
+            string sentence = phrase.Replace("no", "yes");
+            Console.WriteLine(sentence);
+        }
+    }
+}
