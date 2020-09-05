@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//name: Sam Deniz
+namespace Question9
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {/* Name: Main
+          * Purpose: adds ""'s to each word in a string
+          * Restrictions: None */
+            string phrase = "The quick brown fox jumps over the lazy dog.";
+            string[] words = phrase.Split(' ');
+            for (int i=0; i<words.Length;i++)
+            {
+                words[i] = '"' + words[i] + '"';
+                System.Console.Write($"{words[i]}"+" ");
+            }
+        }
+    }
+}
