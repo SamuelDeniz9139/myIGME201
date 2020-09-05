@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+//name: Sam Deniz
+namespace Question7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {/* Name: Main
+          * Purpose: reads a string and inputs it backwards
+          * Restrictions: None */
+            string phrase = Console.ReadLine();
+            for (int i = 0; i < phrase.Length; i++)
+            {
+                Console.Write(phrase[phrase.Length - i - 1]);
+            }
+        }
+    }
+}
