@@ -1,0 +1,192 @@
+using System;
+using System.IO;
+using System.Timers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//name:Sam Deniz
+namespace MathQuiz
+{
+    class Program
+    {
+        static Timer tick;
+        static bool timeOut = false;
+        static void Main()
+        {// name: Main
+        //purpose: runs all main method operations
+        //restrictions: None
+            start:
+            string displayString = "";
+            timeOut = false;
+            int counter = 0;
+            Random rand;
+            rand = new Random();
+            Console.Clear();
+            while (!timeOut)
+            {
+                displayString += (char)('A' + rand.Next(0, 26));
+                for (counter = 0; counter < displayString.Length; ++counter)
+                {
+                    Console.Write(displayString[counter]);
+                    System.Threading.Thread.Sleep(500);
+                }
+                Console.Clear();
+                tick = new Timer(displayString.Length * 500 + 5000);
+                string sQuestions = "";
+                int nQuestions = 0;
+                string sDifficulty = "";
+                int nMaxRange = 0;
+                const int MAX_BASE = 10;
+                int nCntr = 0;
+                int nCorrect = 0;
+                int nOp = 0;
+                int val1 = 0;
+                int val2 = 0;
+                int nAnswer = 0;
+                string sResponse = "";
+                Int32 nResponse = 0;
+                bool bValid = false;
+                string sAgain = "";
+                Random ran = new Random();
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Math Quiz!");
+                Console.WriteLine();
+                while (true)
+                {
+                    Console.Write("What is your name-> ");
+                    string myName = Console.ReadLine();
+                    if (myName.Length > 0)
+                    {
+                        break;
+                    }
+                }
+                nCorrect = 0;
+                Console.WriteLine();
+                do
+                {
+                    Console.Write("How many questions-> ");
+                    sQuestions = Console.ReadLine();
+                    try
+                    {
+                        nQuestions = int.Parse(sQuestions);
+                        bValid = true;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Please enter an integer.");
+                        bValid = false;
+                    }
+
+                } while (!bValid);
+                Console.WriteLine();
+                do
+                {
+                    Console.Write("Difficulty level (easy, medium, hard)-> ");
+                    sDifficulty = Console.ReadLine();
+                } while (sDifficulty.ToLower() != "easy" &&
+                         sDifficulty.ToLower() != "medium" &&
+                         sDifficulty.ToLower() != "hard");
+                Console.WriteLine();
+                switch (sDifficulty.ToLower())
+                {
+                    case "easy":
+                        nMaxRange = MAX_BASE;
+                        break;
+                    case "medium":
+                        nMaxRange = MAX_BASE * 2;
+                        break;
+                    case "hard":
+                        nMaxRange = MAX_BASE * 3;
+                        break;
+                }
+                for (nCntr = 0; nCntr < nQuestions; ++nCntr)
+                {
+                    nOp = rand.Next(0, 3);
+                    val1 = rand.Next(0, nMaxRange) + nMaxRange;
+                    val2 = rand.Next(0, nMaxRange);
+                    if (val1 == 0 || val2 == 0)
+                    {
+                        --nCntr;
+                        continue;
+                    }
+                    if (nOp == 0)
+                    {
+                        nAnswer = val1 + val2;
+                        sQuestions = $"Question #{nCntr + 1}: {val1} + {val2} => ";
+                    }
+                    else if (nOp == 1)
+                    {
+                        nAnswer = val1 - val2;
+                        sQuestions = $"Question #{nCntr + 1}: {val1} - {val2} => ";
+                    }
+                    else
+                    {
+                        nAnswer = val1 * val2;
+                        sQuestions = $"Question #{nCntr + 1}: {val1} * {val2} => ";
+                    }
+                    do
+                    {
+                        Console.Write(sQuestions);
+                        sResponse = Console.ReadLine();
+                        try
+                        {
+                            tick.Elapsed += new ElapsedEventHandler(timesUp);
+                            tick.Start();
+                            nResponse = int.Parse(sResponse);
+                            tick.Stop();
+                            bValid = true;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Please enter an integer.");
+                            bValid = false;
+                        }
+                    } while (!bValid);
+                    if (nResponse == nAnswer && !timeOut)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine("Well done, {0}!!!");
+                        ++nCorrect;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("I'm sorry {0}. The answer is {1}", nAnswer);
+                    }
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+                Console.WriteLine("You got {0} correct out of {1}, which is a score of {2:P2}", nCorrect, nQuestions, Convert.ToDouble(nCorrect) / (double)nCntr);
+                Console.WriteLine();
+                do
+                {
+                    Console.Write("Do you want to play again? ");
+                    sAgain = Console.ReadLine();
+                    if (sAgain.ToLower().StartsWith("y"))
+                    {
+                        goto start;
+                    }
+                    else if (sAgain.ToLower().StartsWith("n"))
+                    {
+                        break;
+                    }
+                } while (true);
+            }
+        }
+        static void timesUp(object source, ElapsedEventArgs e)
+        {// method name: timesUp
+            //Purpose: times you out if you take too long
+            //Restrictions: time taken?
+            Console.WriteLine();
+            Console.WriteLine("Your time is up!");
+            timeOut = true;
+            tick.Stop();
+        }
+    }
+}
