@@ -1,0 +1,21 @@
+using System;
+using System.IO;
+//name: Sam Deniz
+namespace Question3
+{
+    class Program
+    {
+        delegate string read();
+        static void Main(string[] args)
+        {//name: Main
+        //purpose: reads a line written by the user
+        //Restrictions: None
+            string sNumber = null;
+            do
+            {
+                sNumber = Console.ReadLine();
+            }
+            Console.WriteLine(sNumber);
+        }
+    }
+}
