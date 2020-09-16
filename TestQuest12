@@ -1,0 +1,33 @@
+using System;
+//name: Sam Deniz
+namespace TestQuest12
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {/*method name: Main
+          * purpose: to get your name and give you a raise
+          * restrictions: None*/
+            Console.WriteLine("Enter your name: ");
+            string sName;
+            double dSalary = 30000;
+            sName=Console.ReadLine();
+            if (GiveRaise(sName, ref dSalary) == true)
+            {
+                Console.WriteLine("You got a raise!");
+            }
+            Console.WriteLine("Salary: $" + dSalary);
+        }
+        static bool GiveRaise(string name, ref double salary)
+        {/*method name: GiveRaise
+          *purpose: gives a raise if your name is mine 
+          *restrictions: the name given*/
+            if (name=="Sam")
+            {
+                salary += 19999.99;
+                return true;
+            }
+            return false;
+        }
+    }
+}
