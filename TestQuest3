@@ -7,11 +7,11 @@ namespace TestQuest3
         delegate string reader(string beans);
         static void Main(string[] args)
         {/*method name: Main
-          * purpose: to get your name and give you a raise
+          * purpose: to get the compliment and print it out with a delegate
           * restrictions: None*/
             reader inPut;
             string user;
-            Console.WriteLine("What's the most insulting thing you can say?");
+            Console.WriteLine("What's the nicest thing you can say?");
             inPut = new reader(TakeInValue);
             user=inPut(Console.ReadLine());
         }
