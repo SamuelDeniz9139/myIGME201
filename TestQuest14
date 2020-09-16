@@ -1,0 +1,55 @@
+using System;
+namespace UT1_BugSquash
+{//name:Sam Deniz
+    class Program
+    {
+        // Calculate x^y for y > 0 using a recursive function
+        static void Main(string[] args)
+        {/*method name: Main
+          *purpose: asks for two numbers and sets up the formula
+          *restrictions: None*/
+            string sNumber;
+            int nX;
+            int nY;//didn't end with a ;
+            int nAnswer;
+            Console.WriteLine("This program calculates x ^ y.");//had no ""'s
+            do
+            {
+                Console.Write("Enter a whole number for x: ");
+                sNumber=Console.ReadLine();//didn't let sNumber read the line
+            } while (!int.TryParse(sNumber, out nX));
+            do
+            {
+                Console.Write("Enter a positive whole number for y: ");
+                sNumber = Console.ReadLine();
+            } while (!int.TryParse(sNumber, out nY));//both went to nX
+            // compute the factorial of the number using a recursive function
+            nAnswer = Power(nX, nY);
+            Console.WriteLine(nX+"^"+nY+" = "+nAnswer);//written incorrectly
+        }
+        static int Power(int nBase, int nExponent)
+        {/*method name: Power
+          *purpose: raises the numbers to a power recursively
+          *restrictions: numbers inputted*/
+            int returnVal = 0;
+            int nextVal = 0;
+            // the base case for exponents is 0 (x^0 = 1)
+            if (nExponent == 0)
+            {// return for 0
+                returnVal = 0;
+            }
+            else if(nExponent==1)
+            {//return base case
+                returnVal = nBase;
+            }
+            else
+            {
+                // compute the subsequent values using nExponent-1 to eventually reach the base case
+                nextVal = Power(nBase, nExponent - 1);//used +1 and went on forever
+                // multiply the base with all subsequent values
+                returnVal = nBase * nextVal;
+            }
+            return returnVal;
+        }
+    }
+}
