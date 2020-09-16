@@ -1,0 +1,23 @@
+using System;
+//name: Sam Deniz
+namespace TestQuest3
+{
+    class Program
+    {
+        delegate string reader(string beans);
+        static void Main(string[] args)
+        {/*method name: Main
+          * purpose: to get your name and give you a raise
+          * restrictions: None*/
+            reader inPut;
+            string user;
+            Console.WriteLine("What's the most insulting thing you can say?");
+            inPut = new reader(TakeInValue);
+            user=inPut(Console.ReadLine());
+        }
+        static String TakeInValue(string cheese)
+        {
+            return cheese;
+        }
+    }
+}
