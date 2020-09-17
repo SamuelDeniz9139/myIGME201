@@ -1,0 +1,96 @@
+using System;
+using System.Timers;
+class Program
+{//name: Sam Deniz
+    static bool timeOut = false;
+    static Timer tock;
+    static void Main()
+    {/* method name: Main
+      * purpose: asks the questions under the time limit
+      * restrictions: none */
+        string sQuestions = "";
+        int nCorrect = 0;
+        string nAnswer = "";
+        string sResponse = "";
+        string sAgain = "";
+        bool bValid = true;
+        int tick = 0;
+        string distring = "";
+    start:
+        timeOut = false;
+        Random rand;
+        rand = new Random();
+        do
+        {
+            Console.Write("Which question (1, 2, or 3) do you want to answer?");
+            sQuestions = Console.ReadLine();
+            while(!timeOut)
+            {
+                distring += (char)('A' + rand.Next(0, 26));
+                // use tick to loop through displayString
+                for (tick = 0; tick < distring.Length; ++tick)
+                {
+                    // delay for 500 milliseconds
+                    System.Threading.Thread.Sleep(500);
+                }
+                tock = new Timer(distring.Length * 500 + 1000);
+                tock.Elapsed += new ElapsedEventHandler(TimesUp);
+                tock.Start();
+                Console.WriteLine("You have 5 seconds to answer the following question:");
+                switch (sQuestions.ToLower())
+                {
+                    case "1":
+                        Console.WriteLine("Have I ever consumed holy water?");
+                        nAnswer = "yes";
+                        break;
+                    case "2":
+                        Console.WriteLine("How big is my ego?");
+                        nAnswer = "extra thicc";
+                        break;
+                    case "3":
+                        Console.WriteLine("What's my birthday?");
+                        nAnswer = "June 5";
+                        break;
+                }
+                bValid = false;
+                sResponse = Console.ReadLine();
+                tock.Stop();
+            }
+            if (sResponse == nAnswer && !timeOut)
+            {
+                Console.WriteLine("You're winner!");
+                ++nCorrect;
+            }
+            else
+            {
+                Console.WriteLine("You're loser! The answer was "+nAnswer);
+            }
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            timeOut = false;
+        } while (!bValid);
+        do
+        {// prompt if they want to play again
+            Console.Write("Do you want to play again? ");
+            sAgain = Console.ReadLine();
+            if (sAgain.ToLower().StartsWith("y"))
+            {
+                goto start;
+            }
+            else if (sAgain.ToLower().StartsWith("n"))
+            {
+                break;
+            }
+        } while (true);
+    }
+    static void TimesUp(object source, ElapsedEventArgs e)
+    {
+        Console.WriteLine();
+        Console.WriteLine("Your time is up!");
+        // set the bTimeOut flag to quit the game
+        timeOut = true;
+        // stop the timeOutTimer
+        tock.Stop();
+    }
+}
