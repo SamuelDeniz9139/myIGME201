@@ -46,11 +46,14 @@ namespace Vehicles
     {
 
     }
-    public interface IPassengerCarrier
+    interface IPassengerCarrier
     {
+        public virtual void LoadPassenger()
+        {
 
+        }
     }
-    public interface IHeavyLoadCarrier
+    interface IHeavyLoadCarrier
     {
 
     }
