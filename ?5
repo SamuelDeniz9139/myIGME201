@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//name: Sam Deniz
+namespace Vehicles
+{
+    public virtual void LoadPassenger()
+    {
+
+    }
+    public class Vehicle
+    {
+
+    }
+    public class Car : Vehicle
+    {
+
+    }
+    public class Train : Vehicle
+    {
+
+    }
+    public class Compact : Car
+    {
+
+    }
+    public class SUV : Car
+    {
+
+    }
+    public class Pickup : Car
+    {
+
+    }
+    public class Passenger : Train
+    {
+
+    }
+    public class Freight : Train
+    {
+
+    }
+    public class DoubleBogey : Train
+    {
+
+    }
+    public interface IPassengerCarrier
+    {
+
+    }
+    public interface IHeavyLoadCarrier
+    {
+
+    }
+}
