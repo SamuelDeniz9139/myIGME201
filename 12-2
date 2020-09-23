@@ -1,0 +1,33 @@
+using System;
+namespace Strings
+{//name: Sam Deniz
+  public class myClass
+  {
+    private string myString;
+    public virtual string GetString()
+    {/*name: GetString
+      *purpose: gets the string myString
+      *restrictions: none*/
+      return myString;
+    }
+    private string ourString;
+    public void strIng (string ourString)
+    {/*name: strIng
+      *purpose: returns ourString
+      *restrictions: none*/
+      ourString = "communism";
+    }
+  }
+  class Program
+  {
+    static void Main(string[] args)
+    {/*name: Main
+      *purpose: makes myMy and does the functions from the other class
+      *restrictions: none*/
+      string filler="";
+      myClass myMy = new myClass();
+      string sString = myMy.GetString();
+      myMy.strIng(filler);
+    }
+  }
+}
