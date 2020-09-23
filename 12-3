@@ -1,0 +1,32 @@
+using System;
+namespace Strings
+{//name: Sam Deniz
+    public abstract class myClass
+    {
+        public virtual string GetString()
+        {/*name: GetString
+          *purpose: retunrs myString
+          *restrictions: None*/
+            return "giggity giggity";
+        }
+    }
+    public class myDerivedClass: myClass
+    {
+        public override string GetString()
+        {/*name: GetString
+          *purpose: overrides the original GetString
+          *restrictions: None*/
+            return "(output from the derived class)";
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {/*name: Main
+          *purpose: to get the class and return the name
+          *restrictions: None*/
+            myDerivedClass mymy = new myDerivedClass();
+            string sString = mymy.GetString();
+        }
+    }
+}
