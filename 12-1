@@ -1,0 +1,24 @@
+using System:
+namespace Strings
+{//name: Sam Deniz
+	public class myClass
+  {
+    private string myString;
+  	public virtual string GetString()
+  	{/*name: GetString
+      *purpose: retunrs myString
+      *restrictions: None*/
+      return myString;
+    }
+  }
+  class Program
+  {
+    static void Main(string[] args)
+    {/*name: Main
+      *purpose: to get the class and return the name
+      *restrictions: None*/
+      myClass mymy = new myClass();
+      string sString = mymy.GetString();
+    }
+  }
+}
