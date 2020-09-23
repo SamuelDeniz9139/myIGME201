@@ -1,0 +1,8 @@
+// {type:class}
+// {generate:true}
+// {direction:topDown}
+
+[+A:myClass|+name:string;]
+[+myDerivedClass|]
+
+[+A:myClass]<-.-[+myDerivedClass]
