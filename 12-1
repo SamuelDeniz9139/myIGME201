@@ -1,4 +1,4 @@
-using System:
+using System;
 namespace Strings
 {//name: Sam Deniz
 	public class myClass
