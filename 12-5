@@ -1,0 +1,171 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//name: Sam Deniz
+namespace PeopleLib
+{
+    public abstract class course
+    {
+        public string name;
+        public int age;
+        public string courseCode;
+        private int licenseId;
+        public int LicenseId
+        {
+            get
+            {
+                // get will simply return licenseId but it can do any logic
+                return licenseId;
+            }
+            set
+            {
+                // we will only set the licenseId if the course is older than 16
+                if (age > 16)
+                {
+                    licenseId = value;
+                }
+            }
+        }
+        public static bool operator <(course p1, course p2)
+        {
+            return (p1.age < p2.age);
+        }
+        public static bool operator >(course p1, course p2)
+        {
+            return (p1.age > p2.age);
+        }
+        public static bool operator <=(course p1, course p2)
+        {
+            return (p1.age <= p2.age);
+        }
+        public static bool operator >=(course p1, course p2)
+        {
+            return (p1.age >= p2.age);
+        }
+        public static bool operator ==(course p1, course p2)
+        {
+            return (p1.age == p2.age);
+        }
+        public static bool operator !=(course p1, course p2)
+        {
+            return (p1.age != p2.age);
+        }
+        public virtual void Work()
+        {
+            Console.WriteLine("work work work");
+        }
+    }
+    public interface IStudent
+    {
+        void Party();
+    }
+    public interface Icourse
+    {
+        void Eat();
+    }
+    public class Student : course, Icourse, IStudent
+    {//nice
+        public double gpa;
+        public static bool operator <(Student s1, Student s2)
+        {
+            return (s1.gpa < s2.gpa);
+        }
+        public static bool operator <=(Student s1, Student s2)
+        {
+            return (s1.gpa <= s2.gpa);
+        }
+        public static bool operator >(Student s1, Student s2)
+        {
+            return (s1.gpa > s2.gpa);
+        }
+        public static bool operator >=(Student s1, Student s2)
+        {
+            return (s1.gpa >= s2.gpa);
+        }
+        public static bool operator ==(Student s1, Student s2)
+        {
+            return (s1.gpa == s2.gpa);
+        }
+        public static bool operator !=(Student s1, Student s2)
+        {
+            return (s1.gpa != s2.gpa);
+        }
+        public void Eat()
+        {
+            Console.WriteLine("Order a pizza!");
+        }
+        public void Party()
+        {
+            Console.WriteLine("Party on dude");
+        }
+    }
+    public class Teacher : course, Icourse
+    {
+        public string specialty;
+        public override void Work()
+        {
+            Console.WriteLine($"I'll tell you all about {specialty}.");
+        }
+        public void Eat()
+        {
+            Console.WriteLine("Placeholder");
+        }
+    }
+    // [+People|sortedList:SortedList<string, course>|this:courseCode|+Remove(courseCode: string)]
+    public class People
+    {
+        // the generic SortedList class uses a template <> to store indexed data
+        // the first type is the data type to index on
+        // the second type is the data type to store in the list
+        // create a Sorted List indexed on courseCode (string) and storing course objects
+        public SortedList<string, course> sortedList = new SortedList<string, course>();
+        public void Remove(string courseCode)
+        {
+            if (courseCode != null)
+            {
+                sortedList.Remove(courseCode);
+            }
+        }
+        // indexer property allows array access to sortedList via the class object
+        // and catching missing keys and duplicate key exceptions 
+        // notice the indexer property definition shows how it will be used in the calling code:
+        // if we have:
+        //     People people;
+        // then we can call:
+        //     people[courseCode] to access the course object with that courseCode address
+        // and value will be the course object (course) being added to the list in the case of:
+        //     people[courseCode] = course;
+        public course this[string courseCode]
+        {
+            get
+            {
+                course returnVal;
+                try
+                {
+                    returnVal = (course)sortedList[courseCode];
+                }
+                catch
+                {
+                    returnVal = null;
+                }
+                return (returnVal);
+            }
+            set
+            {
+                try
+                {
+                    // we can add to the list using these 2 methods
+                    //      sortedList.Add(courseCode, value);
+                    sortedList[courseCode] = value;
+                }
+                catch
+                {
+                    // an exception will be raised if an entry with a duplicate key is added
+                    // duplicate key handling
+                }
+            }
+        }
+    }
+}
