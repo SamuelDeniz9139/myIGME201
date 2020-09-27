@@ -1,0 +1,275 @@
+using System;
+using System.Collections.Generic;
+namespace RealPetApp
+{//name: Sam Deniz
+    public class Pets
+    {
+        public List<Pet> petList = new List<Pet>();
+        public Pet this[int nPetEl]
+        {/* Name: Pet
+          * Purpose: Serves as the base case for all pet objects
+          * Restrictions: petEl*/
+            get
+            {
+                Pet returnVal;
+                try
+                {
+                    returnVal = (Pet)petList[nPetEl];
+                }
+                catch
+                {
+                    returnVal = null;
+                }
+                return (returnVal);
+            }
+            set
+            {// if the index is less than the number of list elements
+                if (nPetEl < petList.Count)
+                {// update the existing value at that index
+                    petList[nPetEl] = value;
+                }
+                else
+                {// add the value to the list
+                    petList.Add(value);
+                }
+            }
+        }
+        public int count
+        {
+            get
+            {
+                return petList.Count;
+            }
+        }
+        public void Add(Pet pet)
+        {//adds a pet to the list
+            petList.Add(pet);
+        }
+        public void Remove(int petEl)
+        {//takes a pet away from the list
+            petList.RemoveAt(petEl);
+        }
+    }
+    public abstract class Pet
+    {//base pet class, serves as the shape for all pet classes
+        public Pet()
+        {//base constructor
+
+        }
+        public Pet(string name, int age)
+        {//sets name and age
+            this.name = name;
+            this.age = age;
+        }
+        public int age;
+        private string name;
+        public string Name
+        {
+            get
+            {//returns name
+                return name;
+            }
+            set
+            {//sets the value of name
+                name = value;
+            }
+        }
+        public abstract void Eat();
+        public abstract void Play();
+        public abstract void GoToVet();
+    }
+    public interface IDog
+    {//the IDog interface
+        void Eat();
+        void Play();
+        void GoToVet();
+        void NeedWalk();
+        void Bark();
+    }
+    public class Dog : Pet
+    {//the dog class, inherits from Pet
+        public string lic;
+        public Dog(string Lic, string Nam, int Age):base(Nam,Age)
+        {//sets the license nuber
+            this.lic = Lic;
+        }
+        public override void Eat()
+        {//makes the doggo hungry
+            Console.WriteLine($"{Name}: Feed me.");
+        }
+        public override void Play()
+        {//makes the doggo bored
+            Console.WriteLine($"{Name}: Play with me!");
+        }
+        public override void GoToVet()
+        {//makes the doggo want to go to the vet
+            Console.WriteLine($"{Name}: Can we go to the vet?");
+        }
+        public void Bark()
+        {//makes the doggo bork
+            Console.WriteLine($"{Name}: Bork bork bork bork");
+        }
+        public void NeedWalk()
+        {//makes the doggo want to walk
+            Console.WriteLine($"{Name}: Can we go for a walk?");
+        }
+    }
+    public interface ICat
+    {//the ICat interface
+        void Eat();
+        void Play();
+        void Purr();
+        void Scratch();
+    }
+    public class Cat : Pet
+    {//the cat class, inherits from Pet
+        public string lic;
+        public Cat(string Lic, string Nam, int Age) : base(Nam, Age)
+        {//sets the license number
+            this.lic = Lic;
+        }
+        public override void Eat()
+        {//makes the cat hungry
+            Console.WriteLine($"{Name}: I'm hungry.");
+        }
+        public override void Play()
+        {//makes the cat bored
+            Console.WriteLine($"{Name}: Let's play!");
+        }
+        public override void GoToVet()
+        {//makes the cat need to go to the vet
+            Console.WriteLine($"{Name}: Can we go to da vet?");
+        }
+        public void Purr()
+        {//makes the cat purr
+            Console.WriteLine($"{Name}: Purrrrrrrrrrrrrr...");
+        }
+        public void Scratch()
+        {//makes the cat scratch
+            Console.WriteLine($"{Name}: *scratches*");
+        }
+    }
+
+    class Program
+    {//the main program that runs
+        static void Main(string[] args)
+        {/* Name: Main
+          * Purpose: finds every calculation between the needed coordinates and puts them into an array
+          * Restrictions: None */
+            Pet thisPet = null;
+            Dog dog = null;
+            Cat cat = null;
+            IDog iDog = null;
+            ICat iCat = null;
+            Pets pets = new Pets();
+            Random rand = new Random();
+            for (int g = 1; g <= 50; g++)
+            {
+                if (rand.Next(1, 11) == 1)
+                {//50% chance of adding a dog
+                    if (rand.Next(0, 2) == 0)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("You bought a doggo! What's their name?");
+                        string n = Console.ReadLine();
+                        Console.WriteLine("License?");
+                        string l = Console.ReadLine();
+                        int age;
+                        string input;
+                        do
+                        {
+                            Console.WriteLine("How old is the dog?");
+                            input = Console.ReadLine();
+                        }
+                        while (!int.TryParse(input, out age));
+                        dog = new Dog(l,n,age);
+                        pets.Add(dog);
+                        Console.WriteLine();
+                    }
+                    else
+                    {//else add a cat
+                        Console.WriteLine();
+                        Console.WriteLine("You bought a kitty! What's their name?");
+                        string n = Console.ReadLine();
+                        Console.WriteLine("License?");
+                        string l = Console.ReadLine();
+                        int age;
+                        string input;
+                        do
+                        {
+                            Console.WriteLine("How old is the cat?");
+                            input = Console.ReadLine();
+                        }
+                        while (!int.TryParse(input, out age));
+                        cat = new Cat(l, n, age);
+                        pets.Add(cat);
+                        Console.WriteLine();
+                    }
+                }
+                else
+                {
+                    if(pets.count>0)
+                    {
+                        thisPet = pets.petList[rand.Next(0,pets.count)];
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                if(thisPet.GetType()==typeof(Dog))
+                {
+                    iDog = (IDog)thisPet;
+                    int method = rand.Next(0,6);
+                    switch(method)
+                    {//calls dog actions
+                        case 0:
+                            iDog.Eat();
+                            break;
+                        case 1:
+                            iDog.GoToVet();
+                            break;
+                        case 2:
+                            iDog.Play();
+                            break;
+                        case 3:
+                            iDog.NeedWalk();
+                            break;
+                        case 4:
+                            iDog.Bark();
+                            break;
+                        case 5:
+                            iDog.NeedWalk();
+                            break;
+                    }
+                }
+                else if (thisPet.GetType() == typeof(Cat))
+                {
+                    iCat = (ICat)thisPet;
+                    int method = rand.Next(0, 6);
+                    switch (method)
+                    {//calls cat actions
+                        case 0:
+                            iCat.Eat();
+                            break;
+                        case 1:
+                            iCat.Scratch();
+                            break;
+                        case 2:
+                            iCat.Eat();
+                            break;
+                        case 3:
+                            iCat.Purr();
+                            break;
+                        case 4:
+                            iCat.Play();
+                            break;
+                        case 5:
+                            iCat.Purr();
+                            break;
+                    }
+                }
+            }
+        }
+    }
+}
