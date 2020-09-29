@@ -1,0 +1,42 @@
+using System;
+// name: Sam Deniz
+namespace Classy
+{
+    public interface inter
+    {//the interface with the method
+        void Glam();
+    }
+    class Posh
+    {//the first class
+        public virtual void Glam()
+        {
+            Console.WriteLine("FABULOUS!");
+        }
+    }
+    class Elegant
+    {//the second class
+        public virtual void Glam()
+        {
+            Console.WriteLine("BEAUTIFUL!");
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {/*Name: Main
+          *Purpose: makes the two objects in the classes and does MyMethod for both
+          *Restrictions: None */
+            Posh b = new Posh();
+            Elegant f = new Elegant();
+            MyMethod(b);
+            MyMethod(f);
+        }
+        public static void MyMethod(object myObject)
+        {/*Name: MyMethod
+          *Purpose: calls Glam after making the two objects inter's
+          *Restrictions: value passed into myObject */
+            inter fab=(inter)myObject;
+            fab.Glam();
+        }
+    }
+}
