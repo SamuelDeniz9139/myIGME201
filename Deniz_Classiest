@@ -1,0 +1,100 @@
+//name:Sam Deniz
+namespace CafeLib
+{
+    public abstract class HotDrink
+    {
+        public bool instant;
+        public bool milk;
+        private byte sugar;
+        public string size;
+        public customer Cust;
+        public virtual void AddSugar(byte amt)
+        {
+
+        }
+        public abstract void steam()
+        {
+
+        }
+        public HotDrink(string brand)
+        {
+
+        }
+    }
+    public class customer
+    {
+        public string name;
+        public string creditCardNumber;
+        string mood { get; }
+    }
+    public class CupOfCoffee : HotDrink
+    {
+        public CupOfCoffee(string brand) : base(brand)
+        {
+
+        }
+        public override void steam()
+        {
+
+        }
+        public string beanType;
+        public void TakeOrder()
+        {
+
+        }
+    }
+    public class CupOfTea: HotDrink
+    {
+        public CupOfTea(bool custIsRich): base("ok")
+        {
+
+        }
+        public override void steam()
+        {
+
+        }
+        public string leafType;
+        public void TakeOrder()
+        {
+
+        }
+    }
+    public class CupOfCocoa: HotDrink
+    {
+        public CupOfCocoa(bool marshmallows) : base("Expensive Organic Brand")
+        {
+
+        }
+        public override void steam()
+        {
+
+        }
+        private string source;
+        public string Source { set; }
+        public bool marshmallows;
+        public static int numCups;
+        public override void addSugar(byte amt)
+        {
+
+        }
+        public void TakeOrder()
+        {
+
+        }
+    }
+    public class Waiter
+    {
+        public string name;
+        public void ServeCustomer()
+        {
+
+        }
+    }
+    public interface IMood
+    {
+        string mood { get; }
+    }
+    public interface ITakeOrder
+    {
+    }
+}
