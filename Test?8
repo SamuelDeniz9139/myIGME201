@@ -1,8 +1,8 @@
 // {type:class}
 // {generate:true}
 // {direction:topDown}
-[+I:Spooktober]
-[+I:Inktober]
+[+I:Spooktober|+whoosh()]
+[+I:Inktober|+whoops()]
 [+Spooky|+scary:int]
 [+I:Spooktober]^[+Spooky]
 [+Scribble|+doodle:double|+Inky():v]
