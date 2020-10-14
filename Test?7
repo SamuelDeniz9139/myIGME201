@@ -1,0 +1,194 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+namespace Questions4To7
+{//name: Sam Deniz
+    public abstract class Phone
+    {//the phone class, can't be called normally like other classes
+        private string phoNumber;
+        public string PhoNumber;
+        public string address;
+        public abstract void Connect();
+        public abstract void Disconnect();
+    }
+    public class RotaryPhone : Phone, PhoneTerface
+    {//the rotary phone class
+        public void Answer()
+        {
+
+        }
+        public void MakeCall()
+        {
+
+        }
+        public void HangUp()
+        {
+
+        }
+        public override void Disconnect()
+        {
+
+        }
+        public override void Connect()
+        {
+
+        }
+    }
+    public class Tardis : RotaryPhone
+    {//the Tardis phone class
+        public void TimeTravel()
+        {
+
+        }
+        private byte whichDrWho;
+        public byte whichDocWho { get; }
+        private string femSidekick;
+        public string femSideKick { get; }
+        private bool sonicDriver;
+        private double ExteriorSurface;
+        private double InteriorVolume;
+        public static bool operator <(Tardis p1, Tardis p2)
+        {//checks for a 10
+            if (p1.whichDocWho == 10)
+            {
+                return (p1.whichDocWho > p2.whichDocWho);
+            }
+            else if (p2.whichDocWho == 10)
+            {
+                return (p2.whichDocWho > p1.whichDocWho);
+            }
+            return (p1.whichDocWho < p2.whichDocWho);
+        }
+        public static bool operator >(Tardis p1, Tardis p2)
+        {//checks for a 10
+            if (p1.whichDocWho == 10)
+            {
+                return (p1.whichDocWho > p2.whichDocWho);
+            }
+            else if (p2.whichDocWho == 10)
+            {
+                return (p2.whichDocWho > p1.whichDocWho);
+            }
+            return (p1.whichDocWho > p2.whichDocWho);
+        }
+        public static bool operator <=(Tardis p1, Tardis p2)
+        {//checks for a 10
+            if (p1.whichDocWho == 10)
+            {
+                return (p1.whichDocWho > p2.whichDocWho);
+            }
+            else if (p2.whichDocWho == 10)
+            {
+                return (p2.whichDocWho > p1.whichDocWho);
+            }
+            else
+            {
+                return (p1.whichDocWho <= p2.whichDocWho);
+            }
+        }
+        public static bool operator >=(Tardis p1, Tardis p2)
+        {//checks for a 10
+            if (p1.whichDocWho == 10)
+            {
+                return (p1.whichDocWho > p2.whichDocWho);
+            }
+            else if (p2.whichDocWho == 10)
+            {
+                return (p2.whichDocWho > p1.whichDocWho);
+            }
+            else
+            {
+                return (p1.whichDocWho >= p2.whichDocWho);
+            }
+        }
+        public static bool operator ==(Tardis p1, Tardis p2)
+        {//doesn't check for a 10 because equal
+            return (p1.whichDocWho == p2.whichDocWho);
+        }
+        public static bool operator !=(Tardis p1, Tardis p2)
+        {//checks for a 10
+            if (p1.whichDocWho == 10)
+            {
+                return (p1.whichDocWho > p2.whichDocWho);
+            }
+            else if (p2.whichDocWho == 10)
+            {
+                return (p2.whichDocWho > p1.whichDocWho);
+            }
+            return (p1.whichDocWho != p2.whichDocWho);
+        }
+    }
+    public class PushButtonPhone: Phone, PhoneTerface
+    {//the button phone class
+        public void Answer()
+        {
+
+        }
+        public void MakeCall()
+        {
+
+        }
+        public void HangUp()
+        {
+
+        }
+        public override void Disconnect()
+        {
+
+        }
+        public override void Connect()
+        {
+
+        }
+    }
+    public class PhoneBooth : PushButtonPhone
+    {//the phone booth class derived from push button phone
+        public void OpenDoor()
+        {
+
+        }
+        public void ShutDoor()
+        {
+
+        }
+        private bool superman;
+        public bool phoneBook;
+        public double callCost;
+    }
+    public interface PhoneTerface
+    {//phone interface
+        public void MakeCall();
+        public void HangUp();
+        public void Answer();
+    }
+    class Program
+    {//question 6 code
+        static void Main(String[]args)
+        {
+            Tardis tar = new Tardis();
+            PhoneBooth com = new PhoneBooth();
+            UsePhone(tar);
+            UsePhone(com);
+        }
+        static void UsePhone(object obj)
+        {//question 7 code
+            PhoneTerface ring = (PhoneTerface)obj;
+            ring.MakeCall();
+            ring.HangUp();
+            if (ring is Tardis)
+            {
+                Tardis dis = (Tardis)ring;
+                dis.TimeTravel();
+            }
+            if (ring is PhoneBooth)
+            {
+                PhoneBooth frog = (PhoneBooth)ring;
+                frog.OpenDoor();
+            }
+        }
+    }
+}
