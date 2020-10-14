@@ -1,0 +1,10 @@
+// {type:class}
+// {generate:true}
+// {direction:topDown}
+[+I:Spooktober|+Ghost():a]
+[+I:Inktober|+Inky():v]
+[+Spooky|scary:int]
+[+I:Spooktober]^[+Spooky]
+[+Scribble|doodle:double]
+[+I:Inktober]^[+Scribble]
+[+A:Nottober|+Not()]
