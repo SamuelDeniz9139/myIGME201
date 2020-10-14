@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+namespace Test
+{//name:Sam Deniz
+    public class prog
+    {
+        public static void Main(String[] args)
+        {
+            Tuple<double, double, double> varis = new Tuple<double, double, double>(5.5, 4.0, 4.9);
+            SortedList<(double, double, double), double> formula = new SortedList<(double, double, double), double>();
+            for (double w = -2; w <= 0; w+=0.2)
+            {//w
+                for (double y = -1; y <= 1; y += 0.1)
+                {//y
+                    for (double x = 0; x <= 4; x += 0.1)
+                    {//x
+                        formula[(w, y, x)] = ((4*y*y*y) + (2*x*x) - (8*w) + 7);
+                    }
+                }
+            }
+        }
+    }
+}
