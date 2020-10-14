@@ -3,8 +3,8 @@
 // {direction:topDown}
 [+I:Spooktober]
 [+I:Inktober]
-[+Spooky|scary:int|+Ghost():a]
+[+Spooky|+scary:int|+Ghost():a]
 [+I:Spooktober]^[+Spooky]
-[+Scribble|doodle:double|+Inky():v]
+[+Scribble|+doodle:double|+Inky():v]
 [+I:Inktober]^[+Scribble]
 [+A:Nottober|+Not()]
