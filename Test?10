@@ -1,0 +1,69 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+namespace Question9And10
+{//name: Sam Deniz
+    public interface Spooktober
+    {//the first of the two interfaces
+        public void whoosh();
+    }
+    public interface Inktober
+    {//the other interface
+        public void whoops();
+    }
+    public class Spooky: Spooktober
+    {//the first of the two derived classes
+        public int scary=9;
+        public void whoosh()
+        {
+            Console.Write(scary);
+        }
+    }
+    public class Scribble : Inktober
+    {//the other derived class
+        public int doodle=7;
+        public virtual void Inky()
+        {
+            //the virtual method
+        }
+        public void whoops()
+        {
+            Console.WriteLine(doodle);
+        }
+    }
+    public abstract class Nottober
+    {//the abstract elements
+        public abstract void Not();
+    }//question 9 ends here
+    public class Program
+    {
+        public static void main(String[]args)
+        {/* Name: main
+          * Purpose: runs the actual method
+          * Restrictions: none*/
+            Scribble t = new Scribble();
+            Spooky p = new Spooky();
+            MyMethod(t);
+            MyMethod(p);
+        }
+        static void MyMethod(object obj)
+        {/* Name: main
+          * Purpose: runs the polymorphic elements
+          * Restrictions: none*/
+            if (obj is Scribble)
+            {
+                Scribble r = (Scribble)obj;
+                r.whoops();
+            }
+            else if (obj is Spooky)
+            {
+                Spooky r = (Spooky)obj;
+                r.whoosh();
+            }
+        }
+    }
+}//nice
