@@ -1,0 +1,56 @@
+using System.Windows.Forms;
+namespace PE20Dom
+{//name: Sam Deniz
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            try
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                    @"SOFTWARE\\WOW6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
+                    true);
+                key.SetValue(Application.ExecutablePath.Replace(Application.StartupPath + "\\", ""), 11001, Microsoft.Win32.RegistryValueKind.DWord);
+                key.Close();
+            }
+            catch
+            {
+
+            }
+            this.webBrowser1.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            this.webBrowser1.Navigate("people.rit.edu/dxsigm/example.html");
+        }
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            WebBrowser wb = (WebBrowser)sender;
+            HtmlElementCollection htmlElementCollection;
+            HtmlElement htmlElement;
+            htmlElementCollection = wb.Document.GetElementsByTagName("h1");
+            htmlElement = htmlElementCollection[0];
+            htmlElement.InnerText = "My UFO Page";
+            htmlElementCollection = wb.Document.GetElementsByTagName("h2");
+            htmlElement = htmlElementCollection[0];
+            htmlElement.InnerText = "My UFO Info";
+            htmlElement = htmlElementCollection[1];
+            htmlElement.InnerText= "My UFO Pictures";
+            htmlElement = htmlElementCollection[2];
+            htmlElement.InnerText = "";
+            htmlElement = wb.Document.Body;
+            htmlElement.Style += "font-family: sans-serif; color: #aa000a;";
+            htmlElementCollection = wb.Document.GetElementsByTagName("p");
+            htmlElement = htmlElementCollection[0];
+            htmlElement.InnerHtml = "Record your UFO sightings here: <a href='http://www.nuforc.org'>NUFORC</a>";
+            htmlElement.Style += "font-weight: bold; font-size: 2em; text-transform: uppercase; color: #00aa0a; text-shadow: 3px 2px #A44;";
+            htmlElement = htmlElementCollection[1];
+            htmlElement.InnerText = "";
+            HtmlElement htmlElement1 = wb.Document.CreateElement("img");
+            htmlElement1.SetAttribute("src", "https://i.cbc.ca/1.4208539.1531421260!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/homepageaih1975aliens.jpg");
+            htmlElement = htmlElementCollection[2];
+            htmlElement.InsertAdjacentElement(HtmlElementInsertionOrientation.AfterBegin, htmlElement1);
+            htmlElement1 = wb.Document.CreateElement("footer");
+            htmlElement1.InnerHtml = "&copy;2020 S. Deniz";
+            wb.Document.Body.AppendChild(htmlElement1);
+        }
+    }
+}
