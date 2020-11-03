@@ -1,0 +1,156 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using PeopleLib;
+using EditPerson;
+using CourseLib;
+using PeopleAppGlobals;
+namespace DynamicPeeps
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            Globals.AddPeopleSampleData();
+            this.teaButton.Click += new EventHandler(tbC);
+            this.stuButton.Click += new EventHandler(sbC);
+            this.panel1.Visible = false;
+        }
+        private void tbC(object s, EventArgs e)
+        {//stands for teacher button click
+            this.flowLayoutPanel1.Controls.Clear();
+            foreach(KeyValuePair<string,Person>keyValuePair in Globals.people.sortedList)
+            {
+                if(keyValuePair.Value.GetType()==typeof(Teacher))
+                {
+                    AddPanel(keyValuePair.Value);
+                }
+            }
+            teaButton.Text=this.flowLayoutPanel1.Controls.Count.ToString();
+        }
+        private void sbC(object s, EventArgs e)
+        {//stands for student button click
+            this.flowLayoutPanel1.Controls.Clear();
+            foreach (KeyValuePair<string, Person> keyValuePair in Globals.people.sortedList)
+            {
+                if (keyValuePair.Value.GetType() == typeof(Student))
+                {
+                    AddPanel(keyValuePair.Value);
+                }
+            }
+            stuButton.Text = this.flowLayoutPanel1.Controls.Count.ToString();
+        }
+        private void ToolStripButton1__Click(object s, EventArgs e)
+        {
+            ToolStripButton tsb = (ToolStripButton)s;
+            Panel p = (Panel)tsb.Tag;
+            if(tsb.Checked)
+            {
+                tsb.Image = global::DynamicPeeps.Properties.Resources.plus;
+                p.Size = new System.Drawing.Size(189,159);
+                tsb.Checked = false;
+            }
+            else
+            {
+                tsb.Image = global::DynamicPeeps.Properties.Resources.minus;
+                p.Size = new System.Drawing.Size(189, 159);
+                tsb.Checked = true;
+            }
+            p.Refresh();
+        }
+        private void AddPanel(Person g)
+        {
+            Panel panel1 = new System.Windows.Forms.Panel();
+            AddPersonToPanel(ref panel1, g);
+            this.flowLayoutPanel1.Controls.Add(panel1);
+            this.flowLayoutPanel1.Controls.SetChildIndex(panel1,flowLayoutPanel1.Controls.Count);
+        }
+        private void AddPersonToPanel(ref Panel pan, Person per)
+        {
+            Label emaLabel = new System.Windows.Forms.Label();
+            ToolStrip toolStrip1 = new System.Windows.Forms.ToolStrip();
+            ToolStripButton plusButton = new System.Windows.Forms.ToolStripButton();
+            ToolStripLabel toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            GroupBox pgb = new System.Windows.Forms.GroupBox();
+            PictureBox picBox = new System.Windows.Forms.PictureBox();
+            panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            panel1.Controls.Add(emaLabel);
+            panel1.Controls.Add(pgb);
+            panel1.Controls.Add(toolStrip1);
+            panel1.Location = new System.Drawing.Point(3, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(200, 187);
+            panel1.TabIndex = 0;
+            panel1.Tag = per;
+            // emaLabel
+            emaLabel.Location = new System.Drawing.Point(8, 37);
+            emaLabel.Name = "emaLabel";
+            emaLabel.Size = new System.Drawing.Size(153, 23);
+            emaLabel.TabIndex = 1;
+            emaLabel.Text = per.email;
+            // toolStrip1
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            plusButton, toolStripLabel1});
+            toolStrip1.Location = new System.Drawing.Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            toolStrip1.Size = new System.Drawing.Size(196, 25);
+            toolStrip1.TabIndex = 0;
+            toolStrip1.Text = "toolStrip1";
+            // plusButton
+            plusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            plusButton.Image = global::DynamicPeeps.Properties.Resources.plus;
+            plusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            plusButton.Name = "plusButton";
+            plusButton.Size = new System.Drawing.Size(23, 22);
+            plusButton.Text = "Plus";
+            plusButton.Click += new EventHandler(ToolStripButton1__Click);
+            plusButton.Tag = panel1;
+            // toolStripLabel1
+            toolStripLabel1.AutoSize = false;
+            toolStripLabel1.IsLink = true;
+            toolStripLabel1.Name = "toolStripLabel1";
+            toolStripLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            toolStripLabel1.Size = new System.Drawing.Size(120, 22);
+            toolStripLabel1.Text = per.name;
+            toolStripLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            toolStripLabel1.Click += new EventHandler(ToolStripLabel1__Click);
+            toolStripLabel1.Tag = panel1;
+            // pgb 
+            pgb.Controls.Add(this.picBox);
+            pgb.Location = new System.Drawing.Point(11, 63);
+            pgb.Name = "pgb";
+            pgb.Size = new System.Drawing.Size(165, 107);
+            pgb.TabIndex = 1;
+            pgb.TabStop = false;
+            pgb.Text = "Photo";
+            // picBox
+            picBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            picBox.Location = new System.Drawing.Point(3, 16);
+            picBox.Name = "picBox";
+            picBox.Size = new System.Drawing.Size(159, 88);
+            picBox.TabIndex = 0;
+            picBox.TabStop = false;
+            picBox.ImageLocation = per.photoPath;
+        }
+        private void ToolStripLabel1__Click(object s, EventArgs e)
+        {
+            ToolStripLabel t = (ToolStripLabel)s;
+            Panel p= (Panel)t.Tag;
+            PersonEditForm f = new PersonEditForm((Person)p.Tag,this);
+            f.Visible = false;
+            f.ShowDialog();
+            Person h = f.formPerson;
+            p.Controls.Clear();
+            AddPersonToPanel(ref p,h);
+            p.Refresh();
+        }
+    }
+}
