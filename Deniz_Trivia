@@ -1,0 +1,111 @@
+using System.Net;
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
+using System.Web;
+using System.Security.Policy;
+namespace Triviapp
+{
+    class Result
+    {
+        public string cate;
+        public string type;
+        public string diff;
+        public string ques;
+        public string corAns;
+        public List<string> wrong;
+    }
+    class Trivia
+    {
+        public int resCode;
+        public List<Result> results;
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            HttpWebRequest rq;
+            HttpWebResponse rs;
+            StreamReader sr;
+            string url = null;
+            string f = null;
+            url = "https://opentdb.com/api.php?amount=1&category=31&difficulty=hard&type=multiple";
+            rq=(HttpWebRequest)WebRequest.Create(url);
+            rs=(HttpWebResponse)rq.GetResponse();
+            sr = new StreamReader(rs.GetResponseStream());
+            Trivia t = JsonConvert.DeserializeObject<Trivia>(f);
+            t.results[0].ques = HttpUtility.HtmlDecode(t.results[0].ques);
+            t.results[0].corAns = HttpUtility.HtmlDecode(t.results[0].corAns);
+            for(int g=0;g<t.results[0].wrong.Count;++g)
+            {
+                t.results[0].wrong[g] = HttpUtility.HtmlDecode(t.results[0].wrong);
+            }
+        }
+    }
+}
+//end of trivia, jsonhtml begins below
+using System;
+using System.Collections.Generic;
+using System.Net;
+using PeopleLib;
+using System.IO;
+using PeopleAppGlobals;
+using System.Windows.Forms;
+using Newtonsoft.Json;
+namespace JsonHTML
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            Globals.AddPeopleSampleData();
+            List<Teacher> t = new List<Teacher>();
+            List<Student> s = new List<Student>();
+            foreach(KeyValuePair<String,Person> keyValuePair in Globals.people.sortedList)
+            {
+                if(keyValuePair.Value.GetType()==typeof(Teacher))
+                {
+                    t.Add((Teacher)keyValuePair.Value);
+                }
+                else
+                {
+                    s.Add((Student)keyValuePair.Value);
+                }
+            }
+            String cheese = JsonConvert.SerializeObject(s);
+            String beans = JsonConvert.SerializeObject(t);
+            StreamWriter sw = new StreamWriter("c:/temp/students.json");
+            sw.Write(cheese);
+            sw.Close();
+            sw = new StreamWriter("c:/temp/teachers.json");
+            sw.Write(beans);
+            sw.Close();
+            StreamReader sr = new StreamReader("c:/temp/students.json");
+            sr.ReadToEnd();
+            sr.Close();
+            sr = new StreamReader("c:/temp/teachers.json");
+            sr.ReadToEnd();
+            sr.Close();
+            s = JsonConvert.DeserializeObject<List<Student>>(cheese);
+            t = JsonConvert.DeserializeObject<List<Teacher>>(beans);
+            SortedList<String, Person> people = new SortedList<String,Person>();
+            foreach(Student student in s)
+            {
+                people[student.email] = student;
+            }
+            foreach(Teacher teacher in t)
+            {
+                people[teacher.email] = teacher;
+            }
+            string url = "http://people.rit.edu/dxsigm/json.php";
+            HttpWebRequest rq = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebResponse rs = (HttpWebResponse)rq.GetResponse();
+            sr = new StreamReader(rs.GetResponseStream());
+            beans = sr.ReadToEnd();
+            sr.Close();
+            rs.Close();
+            t = JsonConvert.DeserializeObject<List<Teacher>>(beans);
+        }
+    }
+}
