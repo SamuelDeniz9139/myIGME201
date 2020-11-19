@@ -1,0 +1,183 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+namespace HellishInterface
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            try
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                    @"SOFTWARE\\WOW6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
+                    true);
+                key.SetValue(Application.ExecutablePath.Replace(Application.StartupPath + "\\", ""), 11001, Microsoft.Win32.RegistryValueKind.DWord);
+                key.Close();
+            }
+            catch
+            {
+            }
+            this.webBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
+            this.webBrowser.Navigate("http://beesbeesbees.com/");
+            this.groupBox1.MouseLeave += new EventHandler(honey);
+            this.button1.Click += new EventHandler(wasp);
+
+            this.Banana.Panel2.MouseHover += new EventHandler(hornet);
+        }
+        public int zing = 0;
+        private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            WebBrowser wb = (WebBrowser)sender;
+        }
+        private void honey(object sender, EventArgs e)
+        {
+            GroupBox bee = (GroupBox)sender;
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(bee, "According to all known laws of aviation, there is no way that a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible.");
+            tt.Show("According to all known laws of aviation, there is no way that a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible.", bee);
+        }
+        private void wasp(object sender, EventArgs e)
+        {
+            try
+            {
+                Form2 f2 = new Form2();
+                f2.ShowDialog();
+            }
+            catch (Exception es)
+            {
+                MessageBox.Show(es.Message);
+            }
+        }
+        private void hornet(object sender, EventArgs e)
+        {
+            Panel b = (Panel)sender;
+            if (zing % 2 != 0)
+            {
+                b.BackColor = Color.Yellow;
+                zing++;
+            }
+            else
+            {
+                b.BackColor = Color.Black;
+                zing++;
+            }
+        }
+    }
+}//end ofthe first form
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace HellishInterface
+{
+    public partial class Form2 : Form
+    {
+        public Form2()
+        {
+            InitializeComponent();
+            try
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                    @"SOFTWARE\\WOW6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
+                    true);
+                key.SetValue(Application.ExecutablePath.Replace(Application.StartupPath + "\\", ""), 11001, Microsoft.Win32.RegistryValueKind.DWord);
+                key.Close();
+            }
+            catch
+            {
+            }
+            this.label5.Visible = false;
+            pictureBoxBee.ImageLocation = "https://i2.kym-cdn.com/photos/images/newsfeed/000/627/374/9b9.gif";
+            this.WonderBox.TextChanged += new EventHandler(wasp);
+        }
+        private void wasp(object sender, EventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            if(tb.Text!="something long in the box..."&&tb.Text.Length>=28)
+            {
+                label5.Visible = true;
+            }
+            else if (tb.Text=="something long in the box...")
+            {
+                try
+                {
+                    Form3 f3 = new Form3();
+                    f3.ShowDialog();
+                }
+                catch (Exception es)
+                {
+                    MessageBox.Show(es.Message);
+                }
+            }
+        }
+    }
+}//end of the second form
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+namespace HellishInterface
+{
+    public partial class Form3 : Form
+    {
+        public Form3()
+        {
+            InitializeComponent();
+            try
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                    @"SOFTWARE\\WOW6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
+                    true);
+                key.SetValue(Application.ExecutablePath.Replace(Application.StartupPath + "\\", ""), 11001, Microsoft.Win32.RegistryValueKind.DWord);
+                key.Close();
+            }
+            catch
+            {
+            }
+            pictureBox1.ImageLocation = "http://i2.wp.com/68.media.tumblr.com/d97f521ae24a2844c37a249970c66f97/tumblr_inline_omvah8i1D51sndsvm_500.gif?resize=575%2C323";
+            this.radioButton.Click += new EventHandler(wasp);
+            this.radioButton1.Click += new EventHandler(murderHornet);
+            this.splitContainer1.Panel2.Click += new EventHandler(softlock);
+        }
+        private void murderHornet(object sender, EventArgs e)
+        {
+            pictureBox1.ImageLocation = "https://www.nhm.ac.uk/content/dam/nhmwww/discover/asian-hornet/asian-hornet-female-full-width.jpg.thumb.1920.1920.png";
+        }
+        private void softlock(object sender, EventArgs e)
+        {
+            Panel nelap = (Panel)sender;
+            nelap.Visible = false;
+        }
+        private void wasp(object sender, EventArgs e)
+        {
+            try
+            {
+                Form1 f1 = new Form1();  
+                f1.ShowDialog();
+            }
+            catch (Exception es)
+            {
+                MessageBox.Show(es.Message);
+            }
+        }
+    }
+}//end of the last form
