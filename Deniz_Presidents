@@ -1,0 +1,442 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+namespace PresidentsReplica
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            try
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                    @"SOFTWARE\\WOW6432Node\\Microsoft\\Internet Explorer\\MAIN\\FeatureControl\\FEATURE_BROWSER_EMULATION",
+                    true);
+                key.SetValue(Application.ExecutablePath.Replace(Application.StartupPath + "\\", ""), 11001, Microsoft.Win32.RegistryValueKind.DWord);
+                key.Close();
+            }
+            catch
+            {
+            }
+            this.WikiBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(this.WikiBrowser_DocumentCompleted);
+            this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Benjamin_Harrison");
+            this.Washington.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Adams.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Jefferson.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Buren.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Pierce.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Buchanan.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Harrison.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.McKinley.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Roosevelt.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.FDR.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Eisenhower.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Kennedy.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Reagan.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Clinton.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Bush.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.Obama.CheckedChanged += new EventHandler(this.PresRadioButton__CheckedChanged);
+            this.noFilter.CheckedChanged += new EventHandler(this.PartyRadioButton__CheckedChanged);
+            this.Democrat.CheckedChanged += new EventHandler(this.PartyRadioButton__CheckedChanged);
+            this.Republican.CheckedChanged += new EventHandler(this.PartyRadioButton__CheckedChanged);
+            this.DemoRepub.CheckedChanged += new EventHandler(this.PartyRadioButton__CheckedChanged);
+            this.Federalist.CheckedChanged += new EventHandler(this.PartyRadioButton__CheckedChanged);
+            this.textBoxGW.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxJA.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxTJ.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxMB.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxFP.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxJB.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxBH.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxWM.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxTR.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxFR.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxDE.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxJK.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxRR.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxGB.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxBC.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxBO.MouseHover += new EventHandler(HoverMouse);
+            this.textBoxGW.TextChanged += new EventHandler(ChangeText);
+            this.textBoxJA.TextChanged += new EventHandler(ChangeText);
+            this.textBoxTJ.TextChanged += new EventHandler(ChangeText);
+            this.textBoxMB.TextChanged += new EventHandler(ChangeText);
+            this.textBoxFP.TextChanged += new EventHandler(ChangeText);
+            this.textBoxJB.TextChanged += new EventHandler(ChangeText);
+            this.textBoxBH.TextChanged += new EventHandler(ChangeText);
+            this.textBoxWM.TextChanged += new EventHandler(ChangeText);
+            this.textBoxTR.TextChanged += new EventHandler(ChangeText);
+            this.textBoxFR.TextChanged += new EventHandler(ChangeText);
+            this.textBoxDE.TextChanged += new EventHandler(ChangeText);
+            this.textBoxJK.TextChanged += new EventHandler(ChangeText);
+            this.textBoxRR.TextChanged += new EventHandler(ChangeText);
+            this.textBoxGB.TextChanged += new EventHandler(ChangeText);
+            this.textBoxBC.TextChanged += new EventHandler(ChangeText);
+            this.textBoxBO.TextChanged += new EventHandler(ChangeText);
+            this.pictureBox1.MouseHover += new EventHandler(GrowPic);
+        }
+        private void ChangeText(object sender, EventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            if(tb==textBoxGW && textBoxGW.Text != "1")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb,"Wrong # President!");
+                tt.Show("Wrong # President!",tb);
+            }
+            else if (tb == textBoxJA && textBoxJA.Text != "2")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxTJ && textBoxTJ.Text != "3")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxMB && textBoxMB.Text != "8")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxFP && textBoxFP.Text != "14")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxJB && textBoxJB.Text != "15")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxBH && textBoxBH.Text != "23")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxWM && textBoxWM.Text != "25")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxTR && textBoxTR.Text != "26")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxFR && textBoxFR.Text != "32")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxDE && textBoxDE.Text != "34")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxJK && textBoxJK.Text != "35")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxRR && textBoxRR.Text != "40")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxBC && textBoxBC.Text != "42")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxGB && textBoxGB.Text != "43")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+            else if (tb == textBoxBO && textBoxBO.Text != "44")
+            {
+                ToolTip tt = new ToolTip();
+                tt.SetToolTip(tb, "Wrong # President!");
+                tt.Show("Wrong # President!", tb);
+            }
+        }
+        private void GrowPic(object s, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)s;
+            
+        }
+        private void HoverMouse(object sender, EventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(tb, "Which # President?");
+            tt.Show("Which # President?", tb);
+        }
+        private void PartyRadioButton__CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            if (rb.Checked == true)
+            {
+                if (rb == this.noFilter)
+                {//all should appear
+                    this.Washington.Visible = true;
+                    this.Adams.Visible = true;
+                    this.Jefferson.Visible = true;
+                    this.Buren.Visible = true;
+                    this.Pierce.Visible = true;
+                    this.Buchanan.Visible = true;
+                    this.Harrison.Visible = true;
+                    this.McKinley.Visible = true;
+                    this.Roosevelt.Visible = true;
+                    this.Eisenhower.Visible = true;
+                    this.FDR.Visible = true;
+                    this.Kennedy.Visible = true;
+                    this.Reagan.Visible = true;
+                    this.Clinton.Visible = true;
+                    this.Bush.Visible = true;
+                    this.Obama.Visible = true;
+                }
+                if (rb == this.Democrat)
+                {//only Democrats should appear
+                    this.Washington.Visible = false;
+                    this.Adams.Visible = false;
+                    this.Jefferson.Visible = false;
+                    this.Buren.Visible = true;
+                    this.Pierce.Visible = true;
+                    this.Buchanan.Visible = true;
+                    this.Harrison.Visible = false;
+                    this.McKinley.Visible = false;
+                    this.Roosevelt.Visible = false;
+                    this.Eisenhower.Visible = false;
+                    this.FDR.Visible = true;
+                    this.Kennedy.Visible = true;
+                    this.Reagan.Visible = false;
+                    this.Clinton.Visible = true;
+                    this.Bush.Visible = false;
+                    this.Obama.Visible = true;
+                }
+                if (rb == this.Republican)
+                {//only Republicans should appear
+                    this.Washington.Visible = false;
+                    this.Adams.Visible = false;
+                    this.Jefferson.Visible = false;
+                    this.Buren.Visible = false;
+                    this.Pierce.Visible = false;
+                    this.Buchanan.Visible = false;
+                    this.Harrison.Visible = true;
+                    this.McKinley.Visible = true;
+                    this.Roosevelt.Visible = true;
+                    this.Eisenhower.Visible = true;
+                    this.FDR.Visible = false;
+                    this.Kennedy.Visible = false;
+                    this.Reagan.Visible = true;
+                    this.Clinton.Visible = false;
+                    this.Bush.Visible = true;
+                    this.Obama.Visible = false;
+                }
+                if (rb == this.DemoRepub)
+                {//only Jefferson should appear
+                    this.Washington.Visible = false;
+                    this.Adams.Visible = false;
+                    this.Jefferson.Visible = true;
+                    this.Buren.Visible = false;
+                    this.Pierce.Visible = false;
+                    this.Buchanan.Visible = false;
+                    this.Harrison.Visible = false;
+                    this.McKinley.Visible = false;
+                    this.Roosevelt.Visible = false;
+                    this.Eisenhower.Visible = false;
+                    this.FDR.Visible = false;
+                    this.Kennedy.Visible = false;
+                    this.Reagan.Visible = false;
+                    this.Clinton.Visible = false;
+                    this.Bush.Visible = false;
+                    this.Obama.Visible = false;
+                }
+                if (rb == this.Federalist)
+                {//only Washington and Adams should appear
+                    this.Washington.Visible = true;
+                    this.Adams.Visible = true;
+                    this.Jefferson.Visible = false;
+                    this.Buren.Visible = false;
+                    this.Pierce.Visible = false;
+                    this.Buchanan.Visible = false;
+                    this.Harrison.Visible = false;
+                    this.McKinley.Visible = false;
+                    this.Roosevelt.Visible = false;
+                    this.Eisenhower.Visible = false;
+                    this.FDR.Visible = false;
+                    this.Kennedy.Visible = false;
+                    this.Reagan.Visible = false;
+                    this.Clinton.Visible = false;
+                    this.Bush.Visible = false;
+                    this.Obama.Visible = false;
+                }
+            }
+        }
+        private void PresRadioButton__CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            if (rb == this.Washington)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/George_Washington");
+                    pictureBox1.ImageLocation= "https://people.rit.edu/dxsigm/GeorgeWashington.jpeg";
+                }
+            }
+            if (rb == this.Adams)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/John_Adams");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/JohnAdams.jpeg";
+                }
+            }
+            if (rb == this.Jefferson)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Thomas_Jefferson");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/ThomasJefferson.jpeg";
+                }
+            }
+            if (rb == this.Buren)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Martin_Van_Buren");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/MartinVanBuren.jpeg";
+                }
+            }
+            if (rb == this.Pierce)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Franklin_Pierce");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/FranklinPierce.jpeg";
+                }
+            }
+            if (rb == this.Buchanan)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/James_Buchanan");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/JamesBuchanan.jpeg";
+                }
+            }
+            if (rb == this.Harrison)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Benjamin_Harrison");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/BenjaminHarrison.jpeg";
+                }
+            }
+            if (rb == this.McKinley)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/William_McKinley");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/WilliamMcKinley.jpeg";
+                }
+            }
+            if (rb == this.Roosevelt)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Theodore_Roosevelt");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/TheodoreRoosevelt.jpeg";
+                }
+            }
+            if (rb == this.Kennedy)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/John_F._Kennedy");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/JohnFKennedy.jpeg";
+                }
+            }
+            if (rb == this.FDR)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Franklin_D._Roosevelt");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/FranklinDRoosevelt.jpeg";
+                }
+            }
+            if (rb == this.Eisenhower)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Dwight_D. Eisenhower");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/DwightDEisenhower.jpeg";
+                }
+            }
+            if (rb == this.Reagan)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Ronald_Reagan");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/RonaldReagan.jpeg";
+                }
+            }
+            if (rb == this.Clinton)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Bill_Clinton");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/WilliamJClinton.jpeg";
+                }
+            }
+            if (rb == this.Bush)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/George_W._Bush");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/GeorgeWBush.jpeg";
+                }
+            }
+            if (rb == this.Obama)
+            {
+                if (rb.Checked)
+                {
+                    this.WikiBrowser.Navigate("https://en.wikipedia.org/wiki/Barack_Obama");
+                    pictureBox1.ImageLocation = "https://people.rit.edu/dxsigm/BarackObama.png";
+                }
+            }
+        }
+        private void WikiBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            WebBrowser wb = (WebBrowser)sender;
+            HtmlElementCollection htmlElementCollection;
+            HtmlElement htmlElement;
+            htmlElement = wb.Document.Body;
+            htmlElement.Style += "font-family: sans-serif; color: #aa000a;";
+            htmlElementCollection = wb.Document.GetElementsByTagName("p");
+        }
+    }
+}
